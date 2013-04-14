@@ -8,8 +8,9 @@ package com.geekabyte.jprowork.exceptions;
  *
  * @author dade
  */
-
-
-public class InvalidResponseJsonString extends Exception {
+public class APIerrorMessage extends RuntimeException {
     
+    public APIerrorMessage(String msg) {
+        super(msg);
+    }
 }

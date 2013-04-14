@@ -14,51 +14,67 @@ import java.util.Date;
 public class Project {
     
     private int id;
-    private int memberCount;
-    private int taskCount;
-    private String projectName;
-    private String projectDescription;
+    private int workspace_id;
+    private String workspace_name;
+    private int member_count;
+    private int task_count;
+    private String name;
+    private String description;
     private int admin;
-    private Date createdDate;
+    private String created_date;
    
     
     public Project(int id, String projectName, String projectDesc, String created, int memberCount, int taskCount, int admin) {
         this.id = id;
-        this.memberCount = memberCount;
-        this.taskCount = taskCount;
-        this.projectName = projectName;
-        this.projectDescription = projectDesc;
+        this.member_count = memberCount;
+        this.task_count = taskCount;
+        this.name = projectName;
+        this.description = projectDesc;
         this.admin = admin;
-        try {
-            this.createdDate = new SimpleDateFormat("MM/dd/yy").parse(created);
-        } catch (Exception e) {
-        }
+        this.created_date = created;
+
     }
     
-    
-    
+   
     public int getProjectId() {
         return id;
     }
     
+    
+    public int getWorkSpaceId() {
+        return workspace_id;
+    }
+    
+    
+    public String getWorkSpaceName() {
+        return workspace_name;
+    }
+    
     public int getMemberCount() {
-        return memberCount;
+        return member_count;
+    }
+    
+    
+    public int getTaskCount() {
+        return task_count;
     }
     
     public String getProjectName() {
-        return projectName;
+        return name;
     }
     
-    public void setProjectName(String projectName) {
-        this.projectName = projectName;
+    public String getProjectDescription() {
+        return description;
     }
+    
     
     public int getAdmin() {
         return admin;
     }
     
-    public Date getCreatedDate() {
-        return createdDate;
+    public String getCreatedDate() {
+        // TODO convert string representation to Date object
+        return this.created_date;
     }
     
 }

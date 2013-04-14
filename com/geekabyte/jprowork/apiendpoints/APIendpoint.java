@@ -18,5 +18,6 @@ public class APIendpoint {
     public static String getProjectEndpoint = "http://api.prowork.me/project/get";
     public static String getProjectsEndpoint = "http://api.prowork.me/projects/get";
     public static String getProjectActivities = "http://api.prowork.me/project/activities";
+    public static String createNewProject = "http://api.prowork.me/project/new";
 
 }

@@ -5,11 +5,13 @@
 package com.geekabyte.jprowork;
 
 import com.geekabyte.jprowork.apiendpoints.APIendpoint;
+import com.geekabyte.jprowork.exceptions.APIerrorMessage;
 import com.geekabyte.jprowork.exceptions.InvalidParameterException;
 import com.geekabyte.jprowork.exceptions.InvalidResponseJsonString;
 import com.geekabyte.jprowork.exceptions.MissingParameterException;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -89,19 +91,8 @@ public class Member {
             return null;
         } else {
             Gson gson = new Gson();
-            Map<String, String> resultMap = gson.fromJson(responseJson,
-                    new TypeToken<Map<String, String>>() {
-            }.getType());
-
-            // create a project Object and return
-            return new Project(
-                    Integer.parseInt(resultMap.get("id")),
-                    resultMap.get("name"),
-                    resultMap.get("description"),
-                    resultMap.get("created_date"),
-                    Integer.parseInt(resultMap.get("member_count")),
-                    Integer.parseInt(resultMap.get("task_count")),
-                    Integer.parseInt(resultMap.get("admin")));
+            Project project = gson.fromJson(responseJson,Project.class);
+            return project;
         }
  
 
@@ -109,11 +100,58 @@ public class Member {
     }
     
     
-    public Object getProjects() {
-        return null;
+    public List<Project> getProjects() {
+        
+        String responseJson;
+        String params = "token="+token;
+        responseJson = RemoteAPIHandler.getJsonFromAPIEndPoint(APIendpoint.getProjectsEndpoint, params);
+        Gson gson = new Gson();
+        
+        List<Project> resultList = gson.fromJson(responseJson,
+                new TypeToken<List<Project>>() {
+        }.getType());
+        
+        
+        return resultList;
     }
     
-    public Object getProjectActivity(int projectId, int read) throws InvalidParameterException {
+    
+    public Project createProject(String projectTitle, String projectDescription) {
+        String responseJson;
+        Project newProject = null;
+        String params = "token="+token;
+        params += "&";
+        params += "title="+projectTitle;
+        params += "&";
+        params += "description="+projectDescription;
+        
+        responseJson = RemoteAPIHandler.getJsonFromAPIEndPoint(APIendpoint.createNewProject, params);
+        
+        Gson gson = new Gson();
+        Map<String, String> resultMap = gson.fromJson(responseJson,
+                new TypeToken<Map<String, String>>() {
+        }.getType());
+        
+        
+            if (resultMap == null) {
+                // TODO standardize all the exception api calls can throw
+                //throw new InvalidResponseJsonString();
+                return null;
+            } else if (resultMap.get("error") != null) {
+                throw new APIerrorMessage(resultMap.get("error"));
+            } else {
+                // create a new Project object and return
+                int projectId = Integer.parseInt(resultMap.get("id"));
+                newProject = this.getProject(projectId);
+                return newProject;
+            }
+
+    }
+    
+    
+    
+    
+    public List<Activity> getProjectActivities(int projectId, int read) throws InvalidParameterException {
         
         if (read != 1 && read != 0) {
             throw new InvalidParameterException("read parameter should be 1 or 0");
@@ -129,24 +167,26 @@ public class Member {
         responseJson = RemoteAPIHandler.getJsonFromAPIEndPoint(APIendpoint.getProjectActivities, params);
         Gson gson = new Gson();
         
-        List<Map<String, String>> resultMap = gson.fromJson(responseJson,
-                new TypeToken<List<Map<String, String>>>() {
+        List<Activity> resultList = gson.fromJson(responseJson,
+                new TypeToken<List<Activity>>() {
         }.getType());
         
-        
-        System.out.print(resultMap.get(0));
-        return null;
+        return resultList;
     }
     
     
-        public Object getProjectActivity(int projectId) {
+        public List<Activity> getProjectActivities(int projectId) {
         String responseJson;
         String params = "token="+token;
         params += "&";
         params += "project_id="+projectId;
         responseJson = RemoteAPIHandler.getJsonFromAPIEndPoint(APIendpoint.getProjectActivities, params);
-        System.out.print(responseJson);
-        return null;
+        Gson gson = new Gson();
+        List<Activity> resultList = gson.fromJson(responseJson,
+                    new TypeToken<List<Activity>>() {
+            }.getType());
+        
+        return resultList;
     }
     
 }
