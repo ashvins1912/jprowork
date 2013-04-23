@@ -8,12 +8,11 @@ package com.geekabyte.jprowork.exceptions;
  *
  * @author dade
  */
-public class MissingParameterException extends JproworkRuntimeException {
+public class JproworkException extends Exception {
     
-    public MissingParameterException() {}
+    public JproworkException(String message, Throwable cause) {
+        super(message, cause);
     
-    public MissingParameterException(String message) {
-        super(message);
     }
     
 }

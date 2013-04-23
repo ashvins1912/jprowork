@@ -8,13 +8,13 @@ package com.geekabyte.jprowork.exceptions;
  *
  * @author dade
  */
-public class InvalidParameterException extends JproworkRuntimeException {
+public class RemoteAPIHandlerException extends JproworkRuntimeException {
     
-    public InvalidParameterException(String message) {
+    public RemoteAPIHandlerException(String message) {
         super(message);
     }
     
-    public InvalidParameterException(String message, Throwable cause) {
+    public RemoteAPIHandlerException (String message, Throwable cause) {
         super(message, cause);
     }
 }
