@@ -8,6 +8,7 @@ import com.geekabyte.jprowork.exceptions.*;
 import com.geekabyte.jprowork.apiendpoints.*;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -19,6 +20,25 @@ public class Prowork {
 
     private String APIKey;
     private RemoteAPIHandler RemoteAPIHandler;
+    
+    
+    private String stringArrayToParams(Map<String,String> paramsMap) {
+        
+        // Convert array to comma seperated string
+        String params = "";
+        int count = 0;
+        for (String paramKey : paramsMap.keySet()) {
+            if (count == 0) {
+                params += paramKey + "=" + paramsMap.get(paramKey);
+                count++;
+                continue;
+            }
+            params += "&" + paramKey + "=" + paramsMap.get(paramKey);
+            count++;
+        }
+        
+        return params;
+    }
 
     public Prowork(String api_key) {
         APIKey = api_key;
@@ -232,5 +252,47 @@ public class Prowork {
             return false;
         }
 
+    }
+    
+      /**
+     * Allows making a direct GET call to Prowork API.
+     * @param endpoint The URL of the end point as string
+     * @param params A Map containing the parameter for the API endpoint you calling
+     * @return Json string.
+     */
+    public String doAPIGet(String endpoint, Map<String, String> params) 
+                throws JproworkRuntimeException {
+        String param = stringArrayToParams(params);
+        String responseString = "";
+        try {
+        responseString = RemoteAPIHandler.getJsonFromAPIEndPoint(endpoint, param);;
+        } catch (Exception e) {
+             throw new RemoteAPIHandlerException("Error while calling API Endpoint", e);
+        }
+        
+        return responseString;
+    }
+    
+    
+    /**
+     * Allows making a direct POST call to Prowork API.
+     *
+     * @param endpoint The URL of the end point as string
+     * @param params A Map containing the parameter for the API endpoint you
+     * calling
+     * @return Json string.
+     */
+
+    public String doAPIPost(String endpoint, Map<String, String> params) 
+                throws JproworkRuntimeException {
+        String param = stringArrayToParams(params);
+        String responseString = "";
+        try {
+            responseString = RemoteAPIHandler.postToAPIEndPoint(endpoint, param);;
+        } catch (Exception e) {
+            throw new RemoteAPIHandlerException("Error while calling API Endpoint", e);
+        }
+
+        return responseString;
     }
 }
