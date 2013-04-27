@@ -1,4 +1,4 @@
-Jprowork
+JProwork
 ========
 
 A Java implementation of prowork's API
@@ -9,14 +9,14 @@ A Java implementation of prowork's API
 Prowork is a project management app that makes team collaboration easy. Read more about prowork at <a href="http://prowork.me/">http://prowork.me/</a>
 
 <h3>What is JProwork</h3>
-A Java implementation of prowork's API. It escapulates the tasks of making rest API calls to prowork and exposes Proworks entities as Java objects.
+A Java implementation of prowork's API. It encapsulates the tasks of making rest API calls to prowork and exposes Proworks entities as Java objects.
 
 
-<h3>Jprowork's dependencies</h3>
+<h3>JProwork's dependencies</h3>
 Gson is a Java library that can be used to convert Java Objects into their JSON representation. Read more about Gson here: <a href="https://code.google.com/p/google-gson/">https://code.google.com/p/google-gson/ </a>
 
 <h3>Documentation</h3>
 
 Prowork API Documentation: <a href="http://dev.prowork.me/">http://dev.prowork.me/</a>
 <br/>
-Jprowork Documentation: Javadoc included in the repository.
+JProwork Documentation: Javadoc included in the repository.
