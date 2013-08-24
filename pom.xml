@@ -3,7 +3,7 @@
 
   <groupId>com.blogspot.geekabyte.jprowork</groupId>
   <artifactId>Jprowork</artifactId>
-  <version>0.1.0-SNAPSHOT</version>
+  <version>0.1.0</version>
   <packaging>jar</packaging>
   <name>Jprowork</name>
   <description>A Java implementation of prowork's API.</description>
