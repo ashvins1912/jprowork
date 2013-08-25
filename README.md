@@ -17,13 +17,15 @@ Gson is a Java library that can be used to convert Java Objects into their JSON 
 <h3>JProwork as a Maven Artifact</h3>
 If you are using Maven as your build tool you can easily integrate JProwork into your project using the following Maven co-ordinates:
 
-<code>
-	<dependency>
-        <groupId>com.blogspot.geekabyte.jprowork</groupId>
-        <artifactId>Jprowork</artifactId>
-        <version>0.1.0</version>
-    </dependency>
-</code>
+```xml
+<dependency>
+<groupId>com.blogspot.geekabyte.jprowork</groupId>
+<artifactId>Jprowork</artifactId>
+<version>0.1.0</version>
+</dependency>
+```
+
+
 
 <h3>Documentation</h3>
 
